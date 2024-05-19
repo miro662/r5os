@@ -1,10 +1,12 @@
 .section .text.boot
 
+// Main entrypoint to R5OS
 .global _entrypoint
 _entrypoint:
-    li a7, 0x01
-    li a6, 0x00
-    li a0, 0x68
-    scall
+    // reset memory management
+    csrw satp, zero
 
-    j .text.boot
+    // set stack pointer to zero
+    la sp, _stack_end
+    
+    tail kmain
