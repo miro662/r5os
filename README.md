@@ -4,9 +4,10 @@ bare-metal experiments with VisionFive 2
 
 ## How to run
 
-r5os uses LLVM to be built. You can build `r5os` using make:
+r5os uses cmake and LLVM to be built. You can build `r5os` using cmake:
 
 ```
+cmake .
 make
 ```
 
@@ -39,7 +40,8 @@ StarFive # bootelf
 
 ### Using ymodem
 
-In order to do this, you need to connect to your VisionFive 2 by UART and use program capable of transfering files via ymodem (e.g. minicom). Then:
+In order to do this, you need to connect to your VisionFive 2 by UART and use program capable of transfering files via ymodem (e.g. minicom). 
+CMake provides `make vf2_ymodem` command to do so (define `VF2_YMODEM_FILE` accordingly). You can also:
 
 1) Run your VisionFive 2 and get to u-boot prompt. You can do this by running your VisionFive 2 without any storage medium or interrupting start-up when U-boot lists available images.
 2) Enter `loady` command:
@@ -52,4 +54,4 @@ StarFive # loady
 StarFive # bootelf
 ```
 
-You can also use included `start_ymodem.py` file.
+Note: you might need root access to use serial port.

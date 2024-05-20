@@ -14,7 +14,7 @@ def wait_for_prompt(tty: serial.Serial):
     while not line.startswith(PROMPT):
         try:
             ch = tty.read().decode("ascii")
-            if ch == '\n':
+            if ch == "\n":
                 print(f"[serial] {line}", file=sys.stderr)
                 line = ""
             else:
@@ -33,19 +33,15 @@ def send_command(tty: serial.Serial, command: bytes):
 def send_file(tty_file: str, payload_name: str):
     print(f"[start_ymodem] starting sz", file=sys.stderr)
     with open(tty_file, "wb") as stdout, open(tty_file, "rb") as stdin:
-            process = subprocess.run(
-                ["sz", payload_name],
-                stdin=stdin,
-                stdout=stdout
-            )
+        process = subprocess.run(["sz", payload_name], stdin=stdin, stdout=stdout)
     print(f"[start_ymodem] payload status = {process.returncode}", file=sys.stderr)
     if process.returncode != 0:
         raise Exception()
 
 
 def print_output(tty: serial.Serial):
-    ch = '?'
-    while ch != '\0':
+    ch = "?"
+    while ch != "\0":
         try:
             ch = tty.read().decode("ascii")
             print(ch, end="")
@@ -64,12 +60,12 @@ if __name__ == "__main__":
         with serial.Serial(device_name, 115200) as tty:
             print(f"[start_ymodem] waiting for prompt...", file=sys.stderr)
             send_command(tty, b"loady")
-        
+
         time.sleep(1)
         print(f"[start_ymodem] sending payload...", file=sys.stderr)
         send_file(device_name, payload)
-        
-        with serial.Serial(device_name, 115200) as tty:    
+
+        with serial.Serial(device_name, 115200) as tty:
             print(f"[start_ymodem] booting...", file=sys.stderr)
             send_command(tty, b"bootelf")
             print(f"[start_ymodem] booting complete", file=sys.stderr)

@@ -71,6 +71,7 @@ void k_printf(const char* format, ...) {
                 // hexadecimal
                 // unsigned integer formats
                 case 'x':
+                    k_printf("0x");
                     arg.u_int = va_arg(ap, uint64_t);
                     print_uint(arg.u_int, 16, 'a');
                     break;
