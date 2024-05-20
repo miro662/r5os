@@ -9,4 +9,4 @@ _entrypoint:
     // set stack pointer to zero
     la sp, _stack_end
     
-    tail kmain
+    tail k_entry

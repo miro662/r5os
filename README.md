@@ -51,3 +51,5 @@ StarFive # loady
 ```
 StarFive # bootelf
 ```
+
+You can also use included `start_ymodem.py` file.
