@@ -7,6 +7,7 @@ set(
 
 set(
     C_FILES ${C_FILES} 
+    src/arch/riscv64/cpu.c
     src/arch/riscv64/debug.c
 )
 

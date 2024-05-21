@@ -29,6 +29,7 @@ r5os provides basic facilities for printing in kernel mode, built on k_putc plat
    depends on the next character:
 
    * `d` or `i` - assumes that next param to be formatted is an :c:type:`int64_t` and shows it in decimal format.
+   * `b` - assumes that next param to be formatted is an :c:type:`uint64_t` and shows it in binary format, prepended by `0b`.
    * `o` - assumes that next param to be formatted is an :c:type:`uint64_t` and shows it in octal format, prepended by `0`.
    * `u` - assumes that next param to be formatted is an :c:type:`uint64_t` and shows it in decimal format.
    * `x` or `X` - assumes that next param to be formatted is an :c:type:`uint64_t` and shows it in hexadecimal format, prepended by `0x`.

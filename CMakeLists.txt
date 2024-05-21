@@ -9,10 +9,10 @@ set(CMAKE_ASM_COMPILER "clang")
 set(CMAKE_LINKER "ld.lld")
 
 set(ASM_FILES)
-set(C_FILES src/debug.c src/main.c)
+set(C_FILES src/debug.c src/entry.c)
 
 if(${ARCH} IN_LIST SUPPORTED_ARCH) 
-    include(src/arch/${ARCH}/arch.cmake)
+    include(src/arch/${ARCH}/${ARCH}.cmake)
 else()
     message( 
         FATAL_ERROR 

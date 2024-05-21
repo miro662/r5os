@@ -11,12 +11,12 @@ typedef union {
     char ch;
     uint64_t u_int;
     int64_t s_int;
-} printf_data_t;
+} printf_data__t;
 
 void k_printf(const char* format, ...) {
     va_list ap;
     bool format_mode;
-    printf_data_t arg;
+    printf_data__t arg;
 
     va_start(ap, format);
 
@@ -30,6 +30,7 @@ void k_printf(const char* format, ...) {
                     break;
 
                 // unsigned integer formats
+                case 'b':
                 case 'o':
                 case 'u':
                 case 'x':
@@ -46,10 +47,17 @@ void k_printf(const char* format, ...) {
                     break;
 
                 default:
-                    arg.ch = *format;
+                    k_putc(*format);
+                    continue;
             }
 
             switch (*format) {
+                // binary
+                case 'b':
+                    k_printf("0b");
+                    print_uint(arg.u_int, 2, '?');
+                    break;
+
                 // octal
                 case 'o':
                     k_putc('0');
@@ -69,15 +77,12 @@ void k_printf(const char* format, ...) {
                     break;
 
                 // hexadecimal
-                // unsigned integer formats
                 case 'x':
                     k_printf("0x");
-                    arg.u_int = va_arg(ap, uint64_t);
                     print_uint(arg.u_int, 16, 'a');
                     break;
                 case 'X':
                     k_printf("0x");
-                    arg.u_int = va_arg(ap, uint64_t);
                     print_uint(arg.u_int, 16, 'A');
                     break;
 
@@ -105,7 +110,7 @@ void k_printf(const char* format, ...) {
 }
 
 static inline void print_uint(uint64_t num, uint8_t radix, char ten) {
-    char digit_buf[32];
+    char digit_buf[64];
     char* last_digit;
     last_digit = digit_buf;
 
